@@ -1,9 +1,27 @@
 {% extends 'layout.html' %}
 {% block content %}
+  <a href="{% url 'index' %}">Go back to first page</a>
   <h2>Post details</h2>
   <div class="user-post">
     <p>{{ post.author }}</p>
     <p>{{ post.date_added }}</p>
     <p>{{ post.text }}</p>
   </div>
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Post Comment">
+  </form>
+
+  {% for comment in comments %}
+    <div class="user-comment">
+      <hr>
+      <p>{{ comment.author }}</p>
+      <p>{{ comment.date_added }}</p>
+      <p>
+        {{ comment.text}}
+      </p>
+    </div>
+  {% endfor %}
 {% endblock %}
